@@ -104,8 +104,8 @@
                                 <h2>Login</h2>
                                 <form onsubmit="event.preventDefault()">
                                     <div class="field-wrapper">
-                                        <input type="text" name="username" placeholder="username">
-                                        <label>username</label>
+                                        <input type="text" name="email" placeholder="email">
+                                        <label>e-mail</label>
                                     </div>
                                     <div class="field-wrapper">
                                         <input type="password" name="password" placeholder="password"
@@ -116,8 +116,7 @@
                                         <input type="submit" class="btn btn-white btn-animated" value="Sign in"
                                             onclick="showWelcomeUser()">
                                     </div>
-                                    <span class="psw" onclick="showForgotPassword()">Forgot Password? </span>
-                                    <span class="signup" onclick="showSignup()">Not a user? Sign up</span>
+                                    <span class="signup" onclick="showSignup()">Don't have account? Sign up</span>
                                 </form>
                             </div>
                         </div>
@@ -142,8 +141,16 @@
                                 <h2>Register</h2>
                                 <form onsubmit="event.preventDefault()">
                                     <div class="field-wrapper">
-                                        <input type="text" name="name" placeholder="full names">
-                                        <label>full names</label>
+                                        <input type="text" name="first_name" placeholder="first name">
+                                        <label>first name</label>
+                                    </div>
+                                    <div class="field-wrapper">
+                                        <input type="text" name="last_name" placeholder="last name">
+                                        <label>last name</label>
+                                    </div>
+                                    <div class="field-wrapper">
+                                        <input type="text" name="phone" placeholder="Phone number">
+                                        <label>Phone Number</label>
                                     </div>
                                     <div class="field-wrapper">
                                         <input type="text" name="email" placeholder="email">
@@ -162,29 +169,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="side side-left">
-                            <div class="content">
-                                <h2>Contact us</h2>
-                                <form onsubmit="event.preventDefault()">
-                                    <div class="field-wrapper">
-                                        <input type="text" name="name" placeholder="name">
-                                        <label>Name</label>
-                                    </div>
-                                    <div class="field-wrapper">
-                                        <input type="text" name="email" placeholder="email">
-                                        <label>e-mail</label>
-                                    </div>
-                                    <div class="field-wrapper">
-                                        <textarea placeholder="your message"></textarea>
-                                        <label>your message</label>
-                                    </div>
-                                    <div class="field-wrapper">
-                                        <input type="submit" class="btn btn-white btn-animated"
-                                            onclick="showWelcomeUser()">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -200,7 +185,7 @@
 
                         <div class="user-info">
                             <div class="username">
-                                <p><strong>User name</strong> </p>
+                                <p><strong>nc charles</strong> </p>
                             </div>
                         </div>
                     </div>

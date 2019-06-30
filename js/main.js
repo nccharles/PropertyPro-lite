@@ -20,6 +20,9 @@ let usernav = document.querySelector(".user");
 let myPropery = document.querySelector(".my-property");
 let addPropery = document.querySelector(".add-property");
 let search=document.querySelector(".search-form");
+let front = document.querySelector(".side-front");
+let right = document.querySelector(".side-right");
+let back=document.querySelector(".side-back");
 
 const showScrolled=()=>{
     usernav.style.display="block"
@@ -67,6 +70,9 @@ const showForRent=() => {
 //show sign up form
 const showSignup = () => {
     user_sign.style.display="block"
+    right.style.display="block"
+    front.style.display="none"
+    back.style.display="none"
     user_sign.style.transform = "translateZ(-100px) rotateY( -90deg)";
     properties.style.display="none"
     if(screen.width<=767){
@@ -77,11 +83,12 @@ const showSignup = () => {
 const showLogin = () => {
     if(screen.width<=767){
     usernav.querySelector(".nav-list").style.display="none"
-    }
-    if(screen.width<=767){
-        search.style.display="none"
+    search.style.display="none"
     }
     user_sign.style.display="block"
+    right.style.display="none"
+    front.style.display="block"
+    back.style.display="none"
     properties.style.display="none"
     user_sign.style.transform = "translateZ(-100px)";
 }
@@ -92,6 +99,9 @@ const showForgotPassword = () => {
     }
     properties.style.display="none"
     user_sign.style.display="block"
+    right.style.display="none"
+    front.style.display="none"
+    back.style.display="block"
     user_sign.style.transform = "translateZ(-100px) rotateY( -180deg)";
 }
 
