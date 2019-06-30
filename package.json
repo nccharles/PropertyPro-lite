@@ -1,0 +1,32 @@
+{
+  "name": "propertypro-lite",
+  "version": "1.0.0",
+  "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server/server.js",
+    "build": "babel server --out-dir dist",
+    "serve": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nccharles/PropertyPro-lite.git"
+  },
+  "author": "Charles NDAYISABA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nccharles/PropertyPro-lite/issues"
+  },
+  "homepage": "https://github.com/nccharles/PropertyPro-lite#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
