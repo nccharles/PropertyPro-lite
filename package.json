@@ -5,9 +5,9 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon --exec babel-node server/server.js",
-    "build": "babel server --out-dir dist",
+    "build": "mkdir dist && babel server -s -d dist",
     "serve": "node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,16 @@
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "chai-http": "^4.3.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "bcrypt": "^3.0.6",
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.1.4",
+    "moment": "^2.24.0",
+    "uuid": "^3.3.2"
   }
 }
