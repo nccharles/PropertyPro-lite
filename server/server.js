@@ -8,6 +8,7 @@ app.get('/', (req,res)=>{
         message: 'Welcome to PropertyPro-Lite',
       });
 })
-app.post('/api/v1/users', User.signUp);
-app.listen(port);
+app.post('/api/v1/auth/signup', User.signUp);
+const server=app.listen(port);
 console.log('app running on port ', port);
+export default server;
