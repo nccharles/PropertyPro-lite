@@ -7,7 +7,7 @@
     "start": "nodemon --exec babel-node server/server.js",
     "build": "mkdir dist && babel server -s -d dist",
     "serve": "node server/server.js",
-    "test": "mocha"
+    "test": "mocha --require @babel/register 'server/**/**spec.js'"
   },
   "repository": {
     "type": "git",
@@ -24,15 +24,16 @@
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "mocha": "^6.1.4",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
-    "chai": "^4.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^6.1.4",
     "moment": "^2.24.0",
     "uuid": "^3.3.2"
   }
