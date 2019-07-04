@@ -206,11 +206,20 @@
                             </label>
                         </div>
                         <p class='field half required'>
-                                <label class='label required' for='state'>State</label>
-                                <input class='text-input' id='state' name='state' required type='text' value=''>
-                            <label class='label required' for='city'>City</label>
-                            <input class='text-input' id='city' name='city' required type='text' value=''>
-                           <label class='label' for='category'>Category</label>
+                            <label class='label required' for='name'>Property name</label>
+                            <select class='select' id='select'>
+                                <option selected value='house'>House</option>
+                            </select>
+                            <label class='label required' for='location'>Location</label>
+                            <select class='select' id='select'>
+                                    <option selected disabled='true' value="">Select...</option>
+                                    <option value="1">Kigali</option>
+                                    <option value="2">South Province</option>
+                                    <option value="3">Northern Province</option>
+                                    <option value="4">Western Province</option>
+                                    <option value="5">Eastern Province</option>
+                                </select>
+                            <label class='label' for='category'>Category</label>
                             <select class='select' id='select'>
                                     <option selected disabled='true' value="">Select...</option>
                                 <option selected value='sale'>For Sale</option>
@@ -230,12 +239,7 @@
                                 <option value="co-working">Co Working Space</option>
                             </select>
                         </p>
-                        <p class='field required'>
 
-                            <label class='label required' for='address'>address</label>
-                            <input class='text-input' id='address' name='address' required type='text' value=''>
-
-                        </p>
                         <p class='field'>
                             <label class='label' for='about'>About</label>
                             <textarea class='textarea' cols='50' id='about' name='about' rows='4'></textarea>
@@ -264,7 +268,9 @@
                                 <li>Price</li>
                                 <li>Sold/Rented</li>
                             </ul>
-                        </main>                        <article class="row">
+                        </main>
+                        <!-- Row 1-->
+                        <article class="row">
                             <ul>
                                 <li><a href="#">House</a></li>
                                 <li>Kimihurura</li>
@@ -293,6 +299,7 @@
                                     4bedrooms,3bathrooms,kittchen</li>
                             </ul>
                         </article>
+                        <!-- Row 2 -->
                         <article class="row">
                             <ul>
                                 <li><a href="#">House</a></li>
@@ -322,6 +329,7 @@
                                     4bedrooms,3bathrooms,kittchen</li>
                             </ul>
                         </article>
+                        <!-- Row 3 -->
                         <article class="row">
                             <ul>
                                 <li><a href="#">House</a></li>
@@ -350,6 +358,7 @@
                                 <li>Fully furnished House for sale at Kimihurura with 4bedrooms,3bathrooms,kittchen</li>
                             </ul>
                         </article>
+                        <!-- Row 4 -->
                         <article class="row">
                             <ul>
                                 <li><a href="#">House</a></li>
