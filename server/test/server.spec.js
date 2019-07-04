@@ -19,7 +19,7 @@ describe('Testing welcome endpoints', () => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'nccharles1@gmail.com',
+        email: 'charles@gmail.com',
         first_name: 'Charles',
         last_name: 'NDAYISABA',
         password: 'ncinhouse',
@@ -28,15 +28,40 @@ describe('Testing welcome endpoints', () => {
       })
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.status).to.equal(201);
+        expect(res.body).to.have.keys('status', 'data');
+        expect(res.status).to.be.a('number');
         expect((res.body)).to.be.an('object');
-        expect((res.body.token)).to.be.a('string');
-        expect((res.body.id)).to.be.a('number');
-        expect((res.body.first_name)).to.be.a('string');
-        expect((res.body.last_name)).to.be.a('string');
-        expect((res.body.email)).to.be.a('string');
-        expect((res.body.phoneNumber)).to.be.a('string');
-        expect((res.body.address)).to.be.a('string');
+        expect((res.body.data.token)).to.be.a('string');
+        expect((res.body.data.id)).to.be.a('number');
+        expect((res.body.data.first_name)).to.be.a('string');
+        expect((res.body.data.last_name)).to.be.a('string');
+        expect((res.body.data.email)).to.be.a('string');
+        expect((res.body.data.phoneNumber)).to.be.a('string');
+        expect((res.body.data.address)).to.be.a('string');
+        done();
+      });
+  });
+  it('should allow user to login if exist', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'nccharles1@gmail.com',
+        password: 'ncinhouse'
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.status).to.be.a('number');
+        expect(res.body).to.be.an('object');
+        expect((res.body.data)).to.be.an('object');
+        expect((res.body.data.email)).to.be.a('string');
+        expect((res.body.data.first_name)).to.be.a('string');
+        expect((res.body.data.last_name)).to.be.a('string');
+        expect((res.body.data.token)).to.be.a('string');
+        expect((res.body.data.id)).to.be.a('number');
+        expect(res.body).to.haveOwnProperty('status');
+        expect(res.body).to.haveOwnProperty('status').to.be.a('string');
+        expect(res.body).to.haveOwnProperty('data').to.be.an('object');
+
         done();
       });
   });

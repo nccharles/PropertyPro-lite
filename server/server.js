@@ -9,6 +9,7 @@ app.get('/', (req,res)=>{
       });
 })
 app.post('/api/v1/auth/signup', User.signUp);
+app.post('/api/v1/auth/signin', User.login);
 const server=app.listen(port);
 console.log('app running on port ', port);
 export default server;
