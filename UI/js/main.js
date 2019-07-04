@@ -23,7 +23,7 @@ let search=document.querySelector(".search-form");
 let front = document.querySelector(".side-front");
 let right = document.querySelector(".side-right");
 let back=document.querySelector(".side-back");
-
+// onload function
 const showScrolled=()=>{
     usernav.style.display="block"
     adminnav.style.display="none"
