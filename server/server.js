@@ -1,15 +1,17 @@
 import express from 'express'
-import User from './controllers/user';
+import Authentication from './routers/auth';
+import prouter from './routers/property';
 const app=express();
 const port=process.env.PORT || 8080
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.get('/', (req,res)=>{
    return res.status(200).json({
         message: 'Welcome to PropertyPro-Lite',
       });
 })
-app.post('/api/v1/auth/signup', User.signUp);
-app.post('/api/v1/auth/signin', User.login);
+app.use('/api/v1/auth/',Authentication);
+app.use('/api/v1/property/',prouter);
 const server=app.listen(port);
 console.log('app running on port ', port);
 export default server;

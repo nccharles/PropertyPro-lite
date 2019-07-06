@@ -31,7 +31,7 @@ const proData = {
         phoneNumber: '0784603404',
         address: 'KK 15 Road, Kicukiro',
         isAdmin: true
-      },
+      }
     ],
     propertyList: [
       {
@@ -59,8 +59,8 @@ const proData = {
         status: 'Available'
       },
       {
-        owner: 1,
-        id: 1,
+        owner: 4,
+        id: 3,
         price: 145000000,
         state: 'Rwanda',
         city: 'Rubavu',

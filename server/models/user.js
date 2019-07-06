@@ -1,25 +1,26 @@
 import Authentication from '../helpers/auth';
 import moment from 'moment';
 import proData from '../data/storage';
+import { generateToken } from '../middleware/handleToken';
 class User {
     constructor() {
         this.users = proData.usersList;
     }
     signUp(data) {
-        let userId=this.users.length + 1;
+        let id = this.users.length + 1;
         const hashPassword = Authentication.hashPassword(data.password);
-        
-        const tokenData = Authentication.generateToken([userId,data.password,data.email]);
-      
+        const { first_name, last_name, phoneNumber, address, email } = data
+        const tokenData = generateToken({ id, hashPassword, email });
+
         const newUser = {
-            id: userId,
+            id,
             token: tokenData,
-            email: data.email,
-            first_name: data.first_name,
-            last_name: data.last_name,
+            email,
+            first_name,
+            last_name,
             password: hashPassword,
-            phoneNumber: data.phoneNumber,
-            address: data.address,
+            phoneNumber,
+            address,
             isAdmin: false,
             created_on: moment.now(),
         };
@@ -28,7 +29,7 @@ class User {
     }
     AllUsers() {
         return this.users;
-      }
+    }
 
 }
 export default new User();
