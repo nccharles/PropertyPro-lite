@@ -1,6 +1,7 @@
 import UserModel from '../models/user';
 import { serverFeedback, userFeedback, findError } from '../helpers/Feedback';
 import Authentication from '../helpers/auth';
+import { generateToken } from '../middleware/handleToken';
 const User = {
 
   signUp(req, res) {
@@ -35,7 +36,7 @@ const User = {
       const {
         id, phoneNumber, first_name, last_name
       } = displayUser;
-      const token = Authentication.generateToken({ id, email, phoneNumber });
+      const token = generateToken({ id, email, phoneNumber });
       const loggedIn = {
         id, token, first_name, last_name, email
       };
