@@ -44,7 +44,14 @@ const Property = {
             return findError(res);
         }
     },
-
+    getAllProperty(req, res) {
+        try {
+            const properties = PropertyModel.AllProperty();
+            return res.status(200).json({'status':'success','data': properties});
+        } catch (err) {
+            return res.status(500).json({'status':'error','data':{"message":'something went wrong'+err}});
+        }
+    },
     deleteProperty(req, res) {
         try {
             const id = Number(req.params.propertyId);
@@ -75,7 +82,7 @@ const Property = {
         const specificPropertyType = data.find(property => property.type === type);
         return specificPropertyType;
     },
-    getAllProperty(req, res) {
+    getSpecific(req, res) {
         try {
             const properties = PropertyModel.AllProperty();
             const allUsers = UserModel.AllUsers();
@@ -89,8 +96,8 @@ const Property = {
             });
             if (req.query.type) {
                 const { type } = req.query;
-                const queryResult = getPropertyType(finalList, type);
-                if (queryResult.length) {
+                const Result = getPropertyType(properties, type);
+                if (Result.length) {
                     return serverFeedback(res, 200, ...['status', 'success', 'data', queryResult]);
                 } else {
                     return serverFeedback(res, 403, ...['status', 'error', 'data', { 'message': 'Enter a valid value and try again.' }]);
