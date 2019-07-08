@@ -153,22 +153,19 @@ describe('ENDPOINTS TESTING', () => {
         expect(res.body.data[0].address).to.be.a('string');
         expect(res.body.data[0].image_url).to.be.a('string');
         expect(res.body.data[0].price).to.be.a('number');
-        expect(res.body.data[0].ownerEmail).to.be.a('string');
-        expect(res.body.data[0].ownerPhoneNumber).to.be.a('string');
         done();
       });
   });
   it('should get all specific property types', (done) => {
     chai.request(server)
-      .get('/api/v1/property?type=3-bedroom')
+      .get('/api/v1/property/?type=3-bedroom')
       .end((err, res) => {
         if (err) done(err);
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.be.a('number');
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.ownProperty('status').to.be.a('string');
-        expect(res.body).to.have.ownProperty('data').to.be.an('object');
-        expect(res.body.data.message).to.be.a('string');
+        expect(res.body).to.have.ownProperty('data').to.be.an('array');
         done();
       });
   });
