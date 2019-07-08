@@ -23,6 +23,7 @@ let search=document.querySelector(".search-form");
 let front = document.querySelector(".side-front");
 let right = document.querySelector(".side-right");
 let back=document.querySelector(".side-back");
+let footer=document.querySelector(".footer");
 // onload function
 const showScrolled=()=>{
     usernav.style.display="block"
@@ -31,18 +32,24 @@ const showScrolled=()=>{
 }
 // show my property when i signed in
 const showMyProperty=() => {
+    footer.style.display="none"
     myPropery.style.display="block"
     addPropery.style.display="none"
     if(screen.width<=767){
     adminnav.querySelector(".nav-list").style.display="none"
+    }else{
+    adminnav.querySelector(".nav-list").style.display="block"  
     }
 }
 // add add property when i signed in
 const addProperty=() => {
+    footer.style.display="none"
     myPropery.style.display="none"
     addPropery.style.display="block"
     if(screen.width<=767){
     adminnav.querySelector(".nav-list").style.display="none"
+    }else{
+    adminnav.querySelector(".nav-list").style.display="block"  
     }
 }
 // show properties for sale function
@@ -107,6 +114,7 @@ const showForgotPassword = () => {
 
 //show welcome user side
 const showWelcomeUser = () => {
+    footer.style.display="none"
     usernav.style.display="none"
     adminnav.style.display="block"
     properties.style.display="none"

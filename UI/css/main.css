@@ -89,7 +89,7 @@ html {
     animation: fade-in 0.75s 0.25s ease-in forwards;
 }
 .header {
-    min-height: 70vh;
+    min-height: 50vh;
     width: 100%;
     background-image: 
    url('../assets/images/cover.jpg');
@@ -542,7 +542,7 @@ height: auto;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   width: 100%;
-  min-height: 400px;
+  min-height: 600px;
   display: flex;
   flex-direction: row;
 }
@@ -551,7 +551,8 @@ menu {
   padding: 0;
   z-index: 10;
   height: auto;
-  background: var(--main-white);
+  background: var(--primary-color);
+  border: 2px solid var(--main-white);
   box-shadow: 30px 0 30px 0 rgba(0, 0, 0, 0.2);
   margin: 0;
   border-top-left-radius: 12px;
@@ -646,7 +647,7 @@ menu .user-info:last-child {
 menu .username {
   font-size: 20px;
   text-align: center;
-  color: var(--primary-black);
+  color: var(--main-white);
   letter-spacing: 1px;
 }
 
@@ -660,7 +661,7 @@ menu .filter-form {
     max-width: 45em;
     margin: 0 auto 0 20px;
     padding: 20px;
-    background: var(--third-translate);
+    background: var(--main-white);
     position: relative;
     display: flex;
     flex-flow: row wrap;
@@ -684,7 +685,7 @@ menu .filter-form {
   
   .form .label {
     font-weight: bold;
-    color: var(--main-white);
+    color: var(--primary-color);
     padding-top: 20px;
     padding-left: 0;
     letter-spacing: 0.025em;
@@ -711,12 +712,12 @@ menu .filter-form {
     box-sizing: border-box;
     margin-right: 1px;
     background: rgba(0, 0, 0, .1);
-    border-bottom: solid 1px var(--main-white);
-    color: var(--main-white);
+    border-bottom: solid 1px var(--primary-color);
+    color: var(--primary-color);
     position: relative;
   }
   .form .checkbox-input + label:placeholder, .form .option-input + label:placeholder, .form .text-input:placeholder, .form .textarea:placeholder, .form .select:placeholder, .customSelect:placeholder {
-    color: var(--main-white);
+    color: var(--primary-color);
   }
   
   .form:not(.has-magic-focus) .checkbox-input + label:active, .form:not(.has-magic-focus) .option-input + label:active, .form:not(.has-magic-focus) .text-input:active, .form:not(.has-magic-focus) .textarea:active, .form:not(.has-magic-focus) .select:active, .form:not(.has-magic-focus) .customSelect:active, .form:not(.has-magic-focus) .customSelect.customSelectFocus, .form:not(.has-magic-focus) .checkbox-input + label:focus, .form:not(.has-magic-focus) .option-input + label:focus, .form:not(.has-magic-focus) .text-input:focus, .form:not(.has-magic-focus) .textarea:focus, .form:not(.has-magic-focus) .select:focus, .form:not(.has-magic-focus) .customSelect:focus {
@@ -861,8 +862,8 @@ menu .filter-form {
   height: auto;
   padding: 2px;
   border-radius: 2px;
-  background: var(--third-translate);
-  color: rgba(255, 255, 255, 1);
+  background: var(--main-white);
+  color: var(--primary-color);
 }
 
 /* lists */
@@ -905,7 +906,8 @@ menu .filter-form {
 .row {
   padding: 20px 0;
   min-height: 80px;
-  font-size: 0;
+  font-size: 20px;
+  font-weight: 600;
   position: relative;
   overflow: hidden;
   transition: color 0.2s ease-out;
@@ -939,6 +941,7 @@ menu .filter-form {
   height: 80px;
   font-size: 30px;
   font-weight: 900;
+  color: var(--main-white);
   background: var(--main_gradient);
   padding: 20px 0;
   min-height: 80px;
@@ -1014,7 +1017,7 @@ li.action .icon-delete {
   @media (min-width: 640px) {
     .property-card {
       flex-direction: row;
-      max-width: 80%;
+      max-width: 100%;
     }
     .property-card .meta {
       flex-basis: 40%;
