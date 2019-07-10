@@ -83,22 +83,12 @@ describe('ENDPOINTS TESTING', () => {
         image_url: 'https://images.io/123'
       })
       .end((err, res) => {
-        if (err) {
-          done(err);
-        }
+        if (err) { done(err); }
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.be.a('number');
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.ownProperty('status').to.be.a('string');
         expect(res.body).to.have.ownProperty('data').to.be.an('object');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data.status).to.be.a('string');
-        expect(res.body.data.state).to.be.a('string');
-        expect(res.body.data.type).to.be.a('string');
-        expect(res.body.data.city).to.be.a('string');
-        expect(res.body.data.address).to.be.a('string');
-        expect(res.body.data.image_url).to.be.a('string');
-        expect(res.body.data.price).to.be.a('number');
         done();
       });
   });
@@ -241,6 +231,37 @@ describe('ENDPOINTS TESTING', () => {
         expect(res.body.status).to.be.a('string');
         expect(res.body.data).to.be.an('object');
         expect(res.body.data.message).to.equal('Property not found. Property may have been removed');
+        done();
+      });
+  });
+  it('should return a message `Something went wrong!`', (done) => {
+    chai.request(server)
+      .patch('/api/v1/property/27/sold')
+      .set('Authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        if (err) done(err);
+        expect(res.body).to.have.keys('status', 'data');
+        expect(res.status).to.equal(500);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.ownProperty('status').that.equals('error');
+        expect(res.body.status).to.be.a('string');
+        expect(res.body.data).to.be.an('object');
+        expect(res.body.data.message).to.equal('Something went wrong!');
+        done();
+      });
+  });
+  it('should return a message `Token must be provided`', (done) => {
+    chai.request(server)
+      .patch('/api/v1/property/2/sold')
+      .end((err, res) => {
+        if (err) done(err);
+        expect(res.body).to.have.keys('status', 'data');
+        expect(res.status).to.equal(403);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.ownProperty('status').that.equals('error');
+        expect(res.body.status).to.be.a('string');
+        expect(res.body.data).to.be.an('object');
+        expect(res.body.data.message).to.equal('Token must be provided');
         done();
       });
   });
