@@ -5,20 +5,20 @@ import { generateToken } from '../middleware/handleToken';
 const User = {
 
   signUp(req, res) {
+    try {
     if (!req.body.first_name && !req.body.last_name && !req.body.email && !req.body.password && !req.body.address && !req.body.phoneNumber) {
-      return res.status(400).send({ 'message': 'Please Fill all fields' })
+      return serverFeedback(res, 400, ...['status', 400, 'error', 'Please Fill all fields' ])
     }
     const allUserList = UserModel.AllUsers();
     const Index = allUserList.findIndex(u => u.email === req.body.email);
     if (Index >= 0){
-      return serverFeedback(res, 403, ...['status', 'error', 'data', { 'message': 'User already exist'}]);
+      return serverFeedback(res, 403, ...['status', 403, 'error', 'User already exist']);
     }
     const User = UserModel.signUp(req.body);
-    return res.status(201).json({
-      status: "success",
-      data: User
-    }
-    );
+    return userFeedback(res, 201, User);
+  } catch (err) {
+    return findError(res);
+  }
   },
   login(req, res) {
     try {
@@ -26,12 +26,12 @@ const User = {
       const allUserList = UserModel.AllUsers();
       const displayUser = allUserList.find(u => u.email === email);
       if (!displayUser) {
-        return serverFeedback(res, 403, ...['status', 'error', 'data',{ 'message': 'Invalid email'}]);
+        return serverFeedback(res, 403, ...['status', 403,'error','Invalid email']);
       }
 
       const decryptedPassword = Authentication.comparePassword(displayUser.password,password);
       if (!decryptedPassword) {
-        return serverFeedback(res, 422, ...['status', 'error', 'data', { 'message': 'Incorrect Password'}]);
+        return serverFeedback(res, 422, ...['status', 422,'error','Incorrect Password']);
       }
       const {
         id, phoneNumber, first_name, last_name

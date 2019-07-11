@@ -1,10 +1,11 @@
 import express from 'express'
 import Authentication from './routers/auth';
 import prouter from './routers/property';
+import bodyParser from 'body-parser'
 const app=express();
 const port=process.env.PORT || 8080
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
 app.get('/', (req,res)=>{
    return res.status(200).json({
         message: 'Welcome to PropertyPro-Lite',
