@@ -36,7 +36,7 @@ class Property {
     }
 
     findProperty(id) {
-        const oneProperty = this.proList.find(property => property.id === id);
+        const oneProperty = this.proList.find(property => property.id == id);
         return oneProperty;
     }
 
@@ -47,7 +47,7 @@ class Property {
 
     deleteProperty(id) {
         const propArr = this.proList;
-        const propIndex = propArr.findIndex(property => property.id === id);
+        const propIndex = propArr.findIndex(property => property.id == id);
         if (propIndex >= 0) {
             propArr.splice(propIndex, 1);
             return true;

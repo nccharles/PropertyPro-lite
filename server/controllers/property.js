@@ -1,13 +1,19 @@
 import UserModel from "../models/user";
 import PropertyModel from "../models/property";
 import { serverFeedback, findError } from "../helpers/Feedback";
+import imageUpload from "../middleware/cloudinary";
 const Property = {
-    addProperty(req, res) {
+    async addProperty(req, res) {
         try {
             const { id } = req.tokenData;
-            console.log(id)
+            const image = req.files.image_url;
+
+            const image_url = await imageUpload(image);
+            if (!image_url) {
+                image_url = "https://images.io/123"
+             }
             const {
-                state, city, address, type, price, image_url
+                state, city, address, type, price
             } = req.body;
             const displayResult = PropertyModel.addNew({
                 owner: id,
@@ -47,14 +53,14 @@ const Property = {
     getAllProperty(req, res) {
         try {
             const properties = PropertyModel.AllProperty();
-            return res.status(200).json({'status':'success','data': properties});
+            return res.status(200).json({ 'status': 'success', 'data': properties });
         } catch (err) {
-            return res.status(500).json({'status':'error','data':{"message":'something went wrong'+err}});
+            return res.status(500).json({ 'status': 'error', 'data': { "message": 'something went wrong' } });
         }
     },
     deleteProperty(req, res) {
         try {
-            const id = Number(req.params.propertyId);
+            const id = req.params.propertyId;
             const propToDelete = PropertyModel.deleteProperty(id);
             if (propToDelete) {
                 return serverFeedback(res, 200, ...['status', 'success', 'data', { 'message': 'Property deleted Successfully' }]);
@@ -66,11 +72,11 @@ const Property = {
         }
     },
     markSold(req, res) {
+        const { propertyId } = req.params
         try {
-            const id = Number(req.params.propertyId);
             const propArray = PropertyModel.AllProperty();
-            const propToUpdate = propArray.find(property => property.id === id);
-            const propIndex = propArray.findIndex(property => property.id === id);
+            const propToUpdate = propArray.find(property => property.id == propertyId);
+            const propIndex = propArray.findIndex(property => property.id == propertyId);
             propToUpdate.status = 'Sold';
             PropertyModel.updateProperty(propToUpdate, propIndex);
             return serverFeedback(res, 200, ...['status', 'success', 'data', propToUpdate]);
@@ -110,7 +116,7 @@ const Property = {
     },
     getOneProperty(req, res) {
         try {
-            const id = Number(req.params.propertyId);
+            const id = req.params.propertyId;
             if (!id) return serverFeedback(res, 403, ...['status', 'error', 'data', { 'message': 'Invalid ID' }]);
             const result = PropertyModel.findProperty(id);
             if (!result) return serverFeedback(res, 404, ...['status', 'error', 'data', { 'message': 'No result found. Enter a valid value and try again.' }]);
