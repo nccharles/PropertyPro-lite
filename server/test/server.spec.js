@@ -23,9 +23,9 @@ describe('Testing welcome endpoints', () => {
         email: 'chris@gmail.com',
         first_name: 'Charles',
         last_name: 'NDAYISABA',
-        password: 'ncinhouse',
+        password: 'Ncinhouse',
         phoneNumber: '0784603404',
-        address: 'KK 15 RD'
+        address: 'Kigali'
       })
       .end((err, res) => {
         userToken = res.body.data.token;
@@ -61,7 +61,7 @@ describe('Testing welcome endpoints', () => {
         expect((res.body.data.token)).to.be.a('string');
         expect((res.body.data.id)).to.be.a('number');
         expect(res.body).to.haveOwnProperty('status');
-        expect(res.body).to.haveOwnProperty('status').to.be.a('string');
+        expect(res.body).to.haveOwnProperty('status').to.be.a('number');
         expect(res.body).to.haveOwnProperty('data').to.be.an('object');
 
         done();
@@ -84,11 +84,9 @@ describe('ENDPOINTS TESTING', () => {
       })
       .end((err, res) => {
         if (err) { done(err); }
-        expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.be.a('number');
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').to.be.a('string');
-        expect(res.body).to.have.ownProperty('data').to.be.an('object');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
         done();
       });
   });
@@ -112,9 +110,10 @@ describe('ENDPOINTS TESTING', () => {
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('success');
+        expect(res.body).to.have.ownProperty('status').that.equals(200);
         expect(res.body).to.have.ownProperty('data').to.be.an('object');
         expect(res.body.data.id).to.be.a('number');
+        expect(res.body.data.owner).to.be.a('number');
         expect(res.body.data.status).to.be.a('string');
         expect(res.body.data.state).to.be.a('string');
         expect(res.body.data.type).to.be.a('string');
@@ -132,8 +131,9 @@ describe('ENDPOINTS TESTING', () => {
         if (err) done(err);
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.be.a('number');
+        expect(res.body.status).to.be.a('number');
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('success');
+        expect(res.body).to.have.ownProperty('status').that.equals(200);
         expect(res.body).to.have.ownProperty('data').to.be.an('array');
         expect(res.body.data[0].id).to.be.a('number');
         expect(res.body.data[0].status).to.be.a('string');
@@ -148,14 +148,14 @@ describe('ENDPOINTS TESTING', () => {
   });
   it('should get all specific property types', (done) => {
     chai.request(server)
-      .get('/api/v1/property/?type=3-bedroom')
+      .get('/api/v1/property/?type=4-bedroom')
       .end((err, res) => {
         if (err) done(err);
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.be.a('number');
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').to.be.a('string');
-        expect(res.body).to.have.ownProperty('data').to.be.an('array');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
+        expect(res.body).to.have.ownProperty('data').to.be.an('object');
         done();
       });
   });
@@ -166,21 +166,21 @@ describe('ENDPOINTS TESTING', () => {
         if (err) done(err);
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.equal(200);
-        expect(res.body).to.have.ownProperty('status').that.equals('success');
-        expect(res.body.data[0].id).to.be.a('number');
-        expect(res.body.data[0].status).to.be.a('string');
-        expect(res.body.data[0].state).to.be.a('string');
-        expect(res.body.data[0].type).to.be.a('string');
-        expect(res.body.data[0].city).to.be.a('string');
-        expect(res.body.data[0].address).to.be.a('string');
-        expect(res.body.data[0].image_url).to.be.a('string');
-        expect(res.body.data[0].price).to.be.a('number');
-        expect(res.body.data[0].ownerEmail).to.be.a('string');
-        expect(res.body.data[0].ownerPhoneNumber).to.be.a('string');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
+        expect(res.body.data.id).to.be.a('number');
+        expect(res.body.data.status).to.be.a('string');
+        expect(res.body.data.state).to.be.a('string');
+        expect(res.body.data.type).to.be.a('string');
+        expect(res.body.data.city).to.be.a('string');
+        expect(res.body.data.address).to.be.a('string');
+        expect(res.body.data.image_url).to.be.a('string');
+        expect(res.body.data.price).to.be.a('number');
+        expect(res.body.data.ownerEmail).to.be.a('string');
+        expect(res.body.data.ownerPhoneNumber).to.be.a('string');
         done();
       });
   });
-  it('should update property as Sold', (done) => {
+  it('should mark property as Sold', (done) => {
     chai.request(server)
       .patch('/api/v1/property/2/sold')
       .set('Authorization', `Bearer ${userToken}`)
@@ -189,7 +189,7 @@ describe('ENDPOINTS TESTING', () => {
         expect(res.body).to.have.keys('status', 'data');
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('success');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
         expect(res.body).to.have.ownProperty('data').to.be.an('object');
         expect(res.body.data.id).to.be.a('number');
         expect(res.body.data.status).to.be.a('string');
@@ -210,11 +210,9 @@ describe('ENDPOINTS TESTING', () => {
         if (err) done(err);
         expect(res.status).to.be.a('number');
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('success');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.be.a('string');
-        expect(res.body.data).to.be.an('object');
-        expect(res.body.data.message).to.be.a('string');
+        expect(res.body.status).to.be.a('number');
         done();
       });
   });
@@ -224,13 +222,13 @@ describe('ENDPOINTS TESTING', () => {
       .set('Authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         if (err) done(err);
-        expect(res.body).to.have.keys('status', 'data');
+        expect(res.body).to.have.keys('status', 'error');
         expect(res.status).to.equal(404);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('error');
-        expect(res.body.status).to.be.a('string');
-        expect(res.body.data).to.be.an('object');
-        expect(res.body.data.message).to.equal('Property not found. Property may have been removed');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
+        expect(res.body.status).to.be.a('number');
+        expect(res.body.error).to.be.an('string');
+        expect(res.body.error).to.equal('Property not found. Property may have been removed');
         done();
       });
   });
@@ -240,13 +238,13 @@ describe('ENDPOINTS TESTING', () => {
       .set('Authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         if (err) done(err);
-        expect(res.body).to.have.keys('status', 'data');
+        expect(res.body).to.have.keys('status', 'error');
         expect(res.status).to.equal(500);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('error');
-        expect(res.body.status).to.be.a('string');
-        expect(res.body.data).to.be.an('object');
-        expect(res.body.data.message).to.equal('Something went wrong!');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
+        expect(res.body.status).to.be.a('number');
+        expect(res.body.error).to.be.an('string');
+        expect(res.body.error).to.equal('Something went wrong!');
         done();
       });
   });
@@ -255,13 +253,13 @@ describe('ENDPOINTS TESTING', () => {
       .patch('/api/v1/property/2/sold')
       .end((err, res) => {
         if (err) done(err);
-        expect(res.body).to.have.keys('status', 'data');
+        expect(res.body).to.have.keys('status', 'error');
         expect(res.status).to.equal(403);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').that.equals('error');
-        expect(res.body.status).to.be.a('string');
-        expect(res.body.data).to.be.an('object');
-        expect(res.body.data.message).to.equal('Token must be provided');
+        expect(res.body).to.have.ownProperty('status').to.be.a('number');
+        expect(res.body.status).to.be.a('number');
+        expect(res.body.error).to.be.an('string');
+        expect(res.body.error).to.equal('Token must be provided');
         done();
       });
   });
