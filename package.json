@@ -6,7 +6,7 @@
   "scripts": {
     "start-dev": "nodemon --exec babel-node server/server.js",
     "clean": "rm -rf build && mkdir build",
-    "build": "babel-node server --out-dir build",
+    "build": "babel server --out-dir build",
     "start": "npm run build && node build/server.js",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register 'server/**/**spec.js' ---exit",
     "showCoverage": "coverage/index.html",

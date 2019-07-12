@@ -1,5 +1,5 @@
 import moment from 'moment';
-import proData from '../data/storage';
+import proData from '../utils/storage';
 
 
 class Property {

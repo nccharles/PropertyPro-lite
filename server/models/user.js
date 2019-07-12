@@ -1,6 +1,6 @@
 import Authentication from '../helpers/auth';
 import moment from 'moment';
-import proData from '../data/storage';
+import proData from '../utils/storage';
 import { generateToken } from '../middleware/handleToken';
 class User {
     constructor() {

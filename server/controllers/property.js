@@ -81,16 +81,25 @@ const Property = {
     getAllProperty(req, res) {
         try {
             const properties = PropertyModel.AllProperty();
+            const users = UserModel.AllUsers()
+            const PropertyList = properties.map(pro => {
+                const ownerID = pro.owner;
+                const user = users.find(el => el.id == ownerID);
+                pro.ownerEmail = user.email;
+                pro.ownerPhoneNumber = user.phoneNumber;
+                const { owner, ...finalResult } = pro;
+                return finalResult
+            })
             if (req.query.type) {
                 const { type } = req.query
-                const Result = properties.find(property => property.type === type);
+                const Result = PropertyList.find(property => property.type === type);
                 if (Result) {
                     return serverFeedback(res, 200, ...['status', 200, 'data', Result]);
                 } else {
-                    return serverFeedback(res, 403, ...['status', 403, 'error', 'Enter a valid value and try again.']);
+                    return serverFeedback(res, 403, ...['status', 403, 'error', 'Property not found.Enter a valid value and try again.']);
                 }
             }
-            return serverFeedback(res, 200, ...['status', 200, 'data', properties]);
+            return serverFeedback(res, 200, ...['status', 200, 'data', PropertyList]);
         } catch (err) {
             return findError(res);
         }
@@ -100,7 +109,7 @@ const Property = {
             const id = req.params.propertyId;
             if (!id) return serverFeedback(res, 403, ...['status', 403, 'error', 'Invalid ID']);
             const result = PropertyModel.findProperty(id);
-            if (!result) return serverFeedback(res, 404, ...['status', 404, 'error', 'No result found. Enter a valid value and try again.']);
+            if (!result) return serverFeedback(res, 404, ...['status', 404, 'error', 'Property not found.Enter a valid value and try again.']);
             const proOwnerID = result.owner;
             const userList = UserModel.AllUsers();
             const proOwner = userList.find(user => user.id === proOwnerID);
