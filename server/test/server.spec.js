@@ -13,6 +13,8 @@ describe('Testing welcome endpoints', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect((res.status)).to.equal(200);
+        expect((res.body.status)).to.equal(200);
+        expect((res.body.message)).to.equal('Welcome to PropertyPro-Lite');
         done();
       });
   });

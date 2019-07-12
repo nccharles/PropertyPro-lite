@@ -47,7 +47,7 @@ const proData = {
         status: 'Available'
       },
       {
-        owner: 3,
+        owner: 1,
         id: 2,
         price: 23000000,
         state: 'Rwanda',
@@ -59,7 +59,7 @@ const proData = {
         status: 'Available'
       },
       {
-        owner: 4,
+        owner: 2,
         id: 3,
         price: 145000000,
         state: 'Rwanda',
