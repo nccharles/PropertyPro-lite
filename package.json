@@ -5,8 +5,9 @@
   "main": "server/server.js",
   "scripts": {
     "start-dev": "nodemon --exec babel-node server/server.js",
-    "build": "mkdir dist && babel server -s -d dist",
-    "start": "npm run build && node dist/server.js",
+    "clean": "rm -rf build && mkdir build",
+    "build": "babel server --out-dir build",
+    "start": "npm run build && node build/server.js",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register 'server/**/**spec.js' ---exit",
     "showCoverage": "coverage/index.html",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
