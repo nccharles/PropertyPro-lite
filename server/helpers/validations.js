@@ -2,13 +2,21 @@ import Joi from '@hapi/joi'
 import { serverFeedback } from './Feedback';
 // schema
 const property = Joi.object().keys({
-    owner: Joi.number().required(),
     price: Joi.number().required(),
     state: Joi.string().required(),
     city: Joi.string().required(),
     type: Joi.string().required(),
     address: Joi.string().required(),
-    image_url: Joi.string().required()
+    image_url: Joi.string()
+});
+const proUpdate = Joi.object().keys({
+    owner: Joi.number(),
+    price: Joi.number(),
+    state: Joi.string(),
+    city: Joi.string(),
+    type: Joi.string(),
+    address: Joi.string(),
+    image_url: Joi.string()
 });
 const login = Joi.object().keys({
     password: Joi.required(),
@@ -71,5 +79,18 @@ const validProperty = (req, res, next) => {
         return next();
     });
 };
+const validUpdate= (req, res, next) => {
+    if(req.body.price){
+    let { price } = req.body;
+    price = Number(price);
+    req.body.price = price;
+    }
+    return Joi.validate(req.body, proUpdate, (err, value) => {
+        if (err) {
+            return error(err, res);
+        }
+        return next();
+    });
+};
 
-export { validSignup, validSignin, validProperty }
+export { validSignup, validSignin,validUpdate, validProperty }

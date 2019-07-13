@@ -4,13 +4,12 @@ import { serverFeedback, findError } from "../helpers/Feedback";
 import imageUpload from "../middleware/cloudinary";
 const Property = {
     async addProperty(req, res) {
+        console.log(req.body)
         try {
             const { id } = req.tokenData;
-            const image = req.files.image_url;
-
-            const image_url = await imageUpload(image);
-            if (!image_url) {
-                image_url = "https://images.io/123"
+            let image_url;
+            if(process.env.NODE_ENV!=='test'){
+             image_url = req.files !== null ? await imageUpload(req.files.image_url): "https://images.io/123"
             }
             const {
                 state, city, address, type, price
@@ -26,27 +25,33 @@ const Property = {
             });
             return serverFeedback(res, 201, ...['status', 201, 'data', displayResult]);
         } catch (err) {
+            console.log(err)
             return findError(res);
         }
     },
-    updateProperty(req, res) {
+    async updateProperty(req, res) {
         try {
-            const propId = req.params.propertyId;
+            let image_url;
+            if(process.env.NODE_ENV!=='test'){
+                image_url = req.files !== null ? await imageUpload(req.files.image_url) : null;
+            }
+             const propId = req.params.propertyId;
             const propArray = PropertyModel.AllProperty();
             const propertyData = propArray.find(property => property.id == propId);
             const propIndex = propArray.findIndex(property => property.id == propId);
             const {
-                state, city, address, type, price, image_url
+                state, city, address, type, price
             } = req.body;
-            propertyData.state = (propertyData.state === state) ? propertyData.state : state;
-            propertyData.price = (propertyData.price === price) ? propertyData.price : price;
-            propertyData.city = (propertyData.city === city) ? propertyData.city : city;
-            propertyData.address = (propertyData.address === address) ? propertyData.address : address;
-            propertyData.image_url = (propertyData.image_url === image_url) ? propertyData.image_url : image_url;
-            propertyData.type = (propertyData.type === type) ? propertyData.type : type;
+            propertyData.state = !state ? propertyData.state : state;
+            propertyData.price = !price ? propertyData.price : price;
+            propertyData.city = !city ? propertyData.city : city;
+            propertyData.address = !address ? propertyData.address : address;
+            propertyData.image_url = !image_url ? propertyData.image_url : image_url;
+            propertyData.type = !type ? propertyData.type : type;
             PropertyModel.updateProperty(propertyData, propIndex);
             return serverFeedback(res, 200, ...['status', 200, 'data', propertyData]);
         } catch (err) {
+            console.log(err.message)
             return findError(res);
         }
     },

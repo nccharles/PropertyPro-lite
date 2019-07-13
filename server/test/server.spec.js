@@ -76,7 +76,6 @@ describe('ENDPOINTS TESTING', () => {
       .post('/api/v1/property')
       .set('Authorization', `Bearer ${userToken}`)
       .send({
-        owner: 4,
         price: 4200000,
         state: 'Kigali',
         city: 'Kigali',
@@ -86,9 +85,19 @@ describe('ENDPOINTS TESTING', () => {
       })
       .end((err, res) => {
         if (err) { done(err); }
-        expect(res.status).to.be.a('number');
+        expect(res.body).to.have.keys('status', 'data');
+        expect(res.status).to.equal(201);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.ownProperty('status').to.be.a('number');
+        expect(res.body).to.have.ownProperty('status').that.equals(201);
+        expect(res.body).to.have.ownProperty('data').to.be.an('object');
+        expect(res.body.data.id).to.be.a('number');
+        expect(res.body.data.owner).to.be.a('number');
+        expect(res.body.data.status).to.be.a('string');
+        expect(res.body.data.state).to.be.a('string');
+        expect(res.body.data.type).to.be.a('string');
+        expect(res.body.data.city).to.be.a('string');
+        expect(res.body.data.address).to.be.a('string');
+        expect(res.body.data.price).to.be.a('number');
         done();
       });
   });
@@ -102,7 +111,7 @@ describe('ENDPOINTS TESTING', () => {
         state: 'Kigali',
         city: 'Kigali',
         address: 'Kicukiro KK 15 Road',
-        type: '4-bedroom',
+        type: '2-bedroom',
         image_url: 'https://images.io/123'
       })
       .end((err, res) => {
@@ -150,7 +159,7 @@ describe('ENDPOINTS TESTING', () => {
   });
   it('should get all specific property types', (done) => {
     chai.request(server)
-      .get('/api/v1/property/?type=4-bedroom')
+      .get('/api/v1/property/?type=2-bedroom')
       .end((err, res) => {
         if (err) done(err);
         expect(res.body).to.have.keys('status', 'data');
